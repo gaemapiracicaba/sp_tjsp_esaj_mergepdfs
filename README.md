@@ -17,6 +17,7 @@ Quando exportamos por ***arquivo único***, perde-se a navegação pelos *bookma
 
 Para contornar esse problema, foi escrito esse *script* para juntar os documentos apartados --- obtidos por meio da exportação de  ***um arquivo para cada documento*** --- gerando um arquivo único, com um painel para os *bookmarks*, facilitando a leitura do processo.
 
+![](https://i.imgur.com/9Yz6jdO.png)
 
 <br>
 
