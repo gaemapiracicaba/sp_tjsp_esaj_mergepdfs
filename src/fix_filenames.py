@@ -3,22 +3,37 @@
 
 import os
 import re
+import time
 import shutil
+from zipfile import ZipFile
 from PyPDF2 import PdfFileMerger, PdfFileReader
 
 
-# Paths
+# Major Path
 data_path = os.path.join('..', 'data')
+
+# Paths
 input_path = os.path.join(data_path, 'input')
 output_path = os.path.join(data_path, 'output')
 output_apartados_path = os.path.join(output_path, 'apartados')
-output_final_path = os.path.join(output_path, 'final')
+
+# Clean Directories
+shutil.rmtree(output_path, ignore_errors=True)
 
 # Make Directories
 os.makedirs(input_path, exist_ok=True)
 os.makedirs(output_path, exist_ok=True)
 os.makedirs(output_apartados_path, exist_ok=True)
-os.makedirs(output_final_path, exist_ok=True)
+
+
+def unzip_zipfile(zipfile_file, output_path):
+    """
+    Para descompactar apenas um arquivo .zip específico
+    """
+    print('> Etapa 1: Descompacta arquivo')
+    with ZipFile(zipfile_file, 'r') as zipObj:
+        # Extract all the contents of zip file in different directory
+        zipObj.extractall(output_path)
 
 
 def extract_text(filename):
@@ -47,25 +62,25 @@ def get_n_files(input_path):
     return n_files
 
 
-def rename_files(input_files_path, output_files_path):
+def rename_files(input_files_path):
     print('> Etapa 2: Renomear Arquivos')
     
-    #
+    # Parameters
     n_file = 0
     n_files = get_n_files(input_files_path)
     
-    #
+    # Loop
     for path, dirs, files in os.walk(input_files_path):
         for file in files:
             n_file+=1
             input_file = os.path.join(path, file)
             output_filename = extract_text(file)
-            output_file = os.path.join(output_files_path, output_filename)
-            print('Arquivo {} de {} renomeado - {}% concluído. Aguarde.'.format(n_file, n_files, int(n_file/n_files*100)), end = '\r')
-            shutil.copy(input_file, output_file)
+            output_file = os.path.join(input_files_path, output_filename)
+            print('Arquivo {} de {} renomeado - {}% concluído. Aguarde.'.format(n_file, n_files, int(n_file/n_files*100)), end='\r')
+            os.rename(input_file, output_file)
     
-    #
-    print('> Etapa 2: Renomeando Arquivos Concluída')
+    # 
+    print("{:<100}".format('> Etapa 2: Concluída.'), end='\r')
 
 
 def adjust_bookmark(filename):
@@ -123,7 +138,16 @@ def merge_files(input_files_path, output_file_path, filename):
 
     # Write all the files into a file which is named as shown below
     merged_object.write(os.path.join(output_file_path, filename))
-    return '> Etapa 3: Unificação de Arquivos Concluída'
+    
+    # Fim
+    print("{:<100}".format('> Etapa 3: Concluída.'), end='\r')
+    return 0
+
+
+def create_output_filename(zipfile_file):
+    output_filename = os.path.basename(zipfile_file)
+    output_filename = output_filename.replace('.zip', '.pdf')
+    return output_filename
 
 
 
