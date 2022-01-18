@@ -16,3 +16,12 @@ O Sistema possibilita ainda a exportar o processo de duas formas:
 Quando exportamos por ***arquivo único***, perde-se a navegação pelos *bookmarks* (índice/sumário) que é possível quando se navega pelo processo usando o sistema do e-SAJ, inviabilizando a leitura dos extensos processos judiciais.
 
 Para contornar esse problema, foi escrito esse *script* para juntar os documentos apartados --- obtidos por meio da exportação de  ***um arquivo para cada documento*** --- gerando um arquivo único, com um painel para os *bookmarks*, facilitando a leitura do processo.
+
+
+<br>
+
+--------
+
+### *TODO*
+
+1. Inserir função para passar como input a pasta zipada.
