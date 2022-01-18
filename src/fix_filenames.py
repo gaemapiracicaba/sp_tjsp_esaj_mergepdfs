@@ -3,7 +3,6 @@
 
 import os
 import re
-import time
 import shutil
 from zipfile import ZipFile
 from PyPDF2 import PdfFileMerger, PdfFileReader

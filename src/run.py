@@ -26,9 +26,9 @@ list_files = sort_files_as_list(output_apartados_path)
 output_filename = create_output_filename(zipfile_file)
 
 # Merge Files
-merge_files(output_apartados_path, output_path, output_filename)
+merge_files(output_apartados_path, os.path.dirname(zipfile_file), output_filename)
 
 # Clean Directories
-shutil.rmtree(output_apartados_path, ignore_errors=True)
+shutil.rmtree(output_path, ignore_errors=True)
 
 print("{:<100}".format('> Fim.'))
