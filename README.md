@@ -43,8 +43,7 @@ Customize, ao seu modo, os ***bookmarks***.
 
 ### *TODO*
 
-1. Inserir função para passar como *input* a pasta zipada.
-2. Empacotar https://pyinstaller.readthedocs.io/en/stable/operating-mode.html. https://www.youtube.com/watch?v=I8fGmQh6Ui0
+1. Empacotar https://pyinstaller.readthedocs.io/en/stable/operating-mode.html. https://www.youtube.com/watch?v=I8fGmQh6Ui0
 
 <br>
 

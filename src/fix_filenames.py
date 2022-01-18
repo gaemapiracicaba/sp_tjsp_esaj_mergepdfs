@@ -9,21 +9,20 @@ from zipfile import ZipFile
 from PyPDF2 import PdfFileMerger, PdfFileReader
 
 
-# Major Path
-data_path = os.path.join('..', 'data')
+def set_directories(data_path):
+    # Paths
+    input_path = os.path.join(data_path, 'input')
+    output_path = os.path.join(data_path, 'output')
+    output_apartados_path = os.path.join(output_path, 'apartados')
 
-# Paths
-input_path = os.path.join(data_path, 'input')
-output_path = os.path.join(data_path, 'output')
-output_apartados_path = os.path.join(output_path, 'apartados')
+    # Clean Directories
+    shutil.rmtree(output_path, ignore_errors=True)
 
-# Clean Directories
-shutil.rmtree(output_path, ignore_errors=True)
-
-# Make Directories
-os.makedirs(input_path, exist_ok=True)
-os.makedirs(output_path, exist_ok=True)
-os.makedirs(output_apartados_path, exist_ok=True)
+    # Make Directories
+    os.makedirs(input_path, exist_ok=True)
+    os.makedirs(output_path, exist_ok=True)
+    os.makedirs(output_apartados_path, exist_ok=True)
+    return output_path, output_apartados_path
 
 
 def unzip_zipfile(zipfile_file, output_path):
