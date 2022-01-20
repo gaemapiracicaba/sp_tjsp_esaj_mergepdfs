@@ -6,14 +6,19 @@ import sys
 
 # Functions
 sys.path.append(os.getcwd())
-from src.fix_filenames import *
+from src.merge_process_esaj import *
 
-# Major Path
-data_path = os.path.join('data')
+# Check Directory
+print(os.getcwd())
+
+# Variables
+data_path = os.path.join('..', 'data')
+zipfile_file = os.path.join('..', 'data', 'input', '1010642-60.2020.8.26.0019 pequeno.zip')
+
+# Set Directories
 output_path, output_apartados_path = set_directories(data_path)
 
 # Unzip
-zipfile_file = os.path.join('data', 'input', '1010642-60.2020.8.26.0019 pequeno.zip')
 unzip_zipfile(zipfile_file, output_apartados_path)
 
 # Renomeia os arquivos
@@ -32,3 +37,6 @@ merge_files(output_apartados_path, os.path.dirname(zipfile_file), output_filenam
 shutil.rmtree(output_path, ignore_errors=True)
 
 print("{:<100}".format('> Fim.'))
+
+if __name__ == '__main__':
+    print('Módulo Run')

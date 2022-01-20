@@ -25,17 +25,30 @@ Para contornar esse problema, foi escrito esse *script* para juntar os documento
 
 ### Como Usar?
 
-*Modo 1:*
+**Modo 1:**
 
-Para usuários não-programadores, basta instalar o arquivo *processo_esaj_tjsp.exe*.
+Para usuários não-programadores, basta instalar o arquivo ***processo_esaj_tjsp.exe***.
+<br>Disponível para sistema operacional Windows.
 
-Assumo que você é um usuário de sistema Windows.
+<br>
 
-*Modo 2:*
+**Modo 2:**
 
 Clone o repositório e seja feliz!
+<br>Customize, ao seu modo, os ***bookmarks***.
 
-Customize, ao seu modo, os ***bookmarks***.
+<br>
+
+-----
+
+### Como compilar o .exe?
+
+
+
+```bash
+pyinstaller src/app.py --nowindowed --noconsole --onefile --name=esaj_merge_docs
+pyinstaller src/tkinter_esaj.py --nowindowed --noconsole --onefile --name=esaj_merge_docs
+```
 
 <br>
 
@@ -43,12 +56,4 @@ Customize, ao seu modo, os ***bookmarks***.
 
 ### *TODO*
 
-1. Empacotar https://pyinstaller.readthedocs.io/en/stable/operating-mode.html. https://www.youtube.com/watch?v=I8fGmQh6Ui0
-
-<br>
-
------
-
-### Exemplo
-
-1010642-60.2020.8.26.0019
+1. Empacotar!

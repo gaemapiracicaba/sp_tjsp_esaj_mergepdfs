@@ -29,9 +29,23 @@ def unzip_zipfile(zipfile_file, output_path):
     Para descompactar apenas um arquivo .zip específico
     """
     print('> Etapa 1: Descompacta arquivo')
-    with ZipFile(zipfile_file, 'r') as zipObj:
-        # Extract all the contents of zip file in different directory
-        zipObj.extractall(output_path)
+    if not os.path.isfile(zipfile_file):
+        msg = 'É necessário selecionar um arquivo .zip'
+        print(msg)
+
+    if not os.path.isdir(output_path):
+        msg = 'É necessário selecionar uma pasta'
+        print(msg)
+
+    try:
+        with ZipFile(zipfile_file, 'r') as zipObj:
+            # Extract all the contents of zip file in different directory
+            zipObj.extractall(output_path)
+        msg = '{:<100}'.format('> Etapa 1: Concluída.')
+    except Exception as e:
+        msg = '{:<100}'.format('Erro: ' + e)
+    print(msg, end='\r')
+    return msg
 
 
 def extract_text(filename):
