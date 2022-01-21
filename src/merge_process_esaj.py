@@ -8,20 +8,25 @@ from zipfile import ZipFile
 from PyPDF2 import PdfFileMerger, PdfFileReader
 
 
-def set_directories(data_path):
+def set_directories(zipfile_file):
     # Paths
-    input_path = os.path.join(data_path, 'input')
-    output_path = os.path.join(data_path, 'output')
-    output_apartados_path = os.path.join(output_path, 'apartados')
+    input_path = os.path.dirname(os.path.abspath(zipfile_file))
+
+    while not zipfile_file.lower().endswith(('.zip', '.ZIP')):
+        return 'Selecionar um arquivo .zip'
+
+    #
+    temp = os.path.basename(zipfile_file).replace('.zip', '')
+    output_path = os.path.join(input_path, temp)
+    output_apartados_path = os.path.join(input_path, temp, 'apartados')
 
     # Clean Directories
     shutil.rmtree(output_path, ignore_errors=True)
 
     # Make Directories
-    os.makedirs(input_path, exist_ok=True)
     os.makedirs(output_path, exist_ok=True)
     os.makedirs(output_apartados_path, exist_ok=True)
-    return output_path, output_apartados_path
+    return input_path, output_path, output_apartados_path
 
 
 def unzip_zipfile(zipfile_file, output_path):
@@ -158,7 +163,7 @@ def merge_files(input_files_path, output_file_path, filename):
 
 def create_output_filename(zipfile_file):
     output_filename = os.path.basename(zipfile_file)
-    output_filename = output_filename.replace('.zip', '.pdf')
+    output_filename = output_filename.replace('.zip', '.pdf').replace('.ZIP', '.pdf')
     return output_filename
 
 
