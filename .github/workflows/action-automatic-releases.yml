@@ -25,13 +25,12 @@ jobs:
       - uses: 'marvinpinto/action-automatic-releases@latest'
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
-          automatic_release_tag: 'data'
+          automatic_release_tag: 'app'
           prerelease: false
-          title: 'Dados'
+          title: 'Aplicativo'
           files: |
-            LICENSE
-            ftp_action/index.html
-            README.md
+            dist/esaj_app.exe
+            
 
 
 
