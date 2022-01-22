@@ -28,6 +28,7 @@ Para contornar esse problema, foi escrito esse *script* para juntar os documento
 Para usuários não-programadores, basta usar o arquivo ***esaj_app.exe*** (um executável *portable*), disponível para sistema operacional Windows.
 <br>Basta fazer o [***download* aqui**](https://github.com/gaemapiracicaba/sp_tjsp_esaj/releases/download/app/esaj_app.exe).
 
+
 <br>
 
 **Modo 2: usuário avançado**
