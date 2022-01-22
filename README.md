@@ -73,3 +73,4 @@ pyinstaller src/esaj_tkinter.py --onefile --name=esaj_app
  
 - [StackOverflow | Using tkinter filedialog.askdirectory to choose paths and preform a script using those paths](https://stackoverflow.com/questions/62593336/using-tkinter-filedialog-askdirectory-to-choose-paths-and-preform-a-script-using)
 - [StackOverflow | How to redirect print statements to Tkinter text widget](https://stackoverflow.com/questions/12351786/how-to-redirect-print-statements-to-tkinter-text-widget)
+
