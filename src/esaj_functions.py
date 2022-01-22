@@ -13,9 +13,10 @@ def set_directories(zipfile_file):
     input_path = os.path.dirname(os.path.abspath(zipfile_file))
 
     while not zipfile_file.lower().endswith(('.zip', '.ZIP')):
-        return 'Selecionar um arquivo .zip'
+        print('Erro: Selecionar um arquivo .zip')
+        return 0, 0, 0
 
-    #
+    # Paths
     temp = os.path.basename(zipfile_file).replace('.zip', '')
     output_path = os.path.join(input_path, temp)
     output_apartados_path = os.path.join(input_path, temp, 'apartados')
@@ -35,21 +36,19 @@ def unzip_zipfile(zipfile_file, output_path):
     """
     print('> Etapa 1: Descompacta arquivo')
     if not os.path.isfile(zipfile_file):
-        msg = 'É necessário selecionar um arquivo .zip'
-        print(msg)
+        print('É necessário selecionar um arquivo .zip')
 
     if not os.path.isdir(output_path):
-        msg = 'É necessário selecionar uma pasta'
-        print(msg)
+        print('É necessário selecionar uma pasta')
 
     try:
         with ZipFile(zipfile_file, 'r') as zipObj:
             # Extract all the contents of zip file in different directory
             zipObj.extractall(output_path)
-        msg = '{:<100}'.format('> Etapa 1: Concluída.')
+        msg = '> Etapa 1: Concluída.'
     except Exception as e:
-        msg = '{:<100}'.format('Erro: ' + e)
-    print(msg, end='\r')
+        msg = 'Erro: {}'.format(e)
+    print(msg)
     return msg
 
 
@@ -93,11 +92,11 @@ def rename_files(input_files_path):
             input_file = os.path.join(path, file)
             output_filename = extract_text(file)
             output_file = os.path.join(input_files_path, output_filename)
-            print('Arquivo {} de {} renomeado - {}% concluído. Aguarde.'.format(n_file, n_files, int(n_file/n_files*100)), end='\r')
+            print('Arquivo {} de {} renomeado - {}% concluído. Aguarde.'.format(n_file, n_files, int(n_file/n_files*100)))
             os.rename(input_file, output_file)
     
-    # 
-    print("{:<100}".format('> Etapa 2: Concluída.'), end='\r')
+    # Results
+    print('> Etapa 2: Concluída.')
 
 
 def adjust_bookmark(filename):
@@ -121,8 +120,9 @@ def sort_files_as_list(path):
     """
     Sort list os files in directort
     """
-    # List Files
-    list_files = os.listdir(path)
+    # List Only Files
+    #list_files = os.listdir(path) # Dá erro pois pega pastas tb!
+    list_files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
 
     # Sort
     list_files.sort(key=get_int)
@@ -151,13 +151,13 @@ def merge_files(input_files_path, output_file_path, filename):
             PdfFileReader(os.path.join(input_files_path, file), 'rb'),
             bookmark,
         )
-        print('Arquivo {} de {} juntado - {}% concluído. Aguarde.'.format(n_file, n_files, int(n_file/n_files*100)), end = '\r')
+        print('Arquivo {} de {} juntado - {}% concluído. Aguarde.'.format(n_file, n_files, int(n_file/n_files*100)))
 
     # Write all the files into a file which is named as shown below
     merged_object.write(os.path.join(output_file_path, filename))
     
     # Fim
-    print("{:<100}".format('> Etapa 3: Concluída.'), end='\r')
+    print('> Etapa 3: Concluída.')
     return 0
 
 
@@ -165,6 +165,10 @@ def create_output_filename(zipfile_file):
     output_filename = os.path.basename(zipfile_file)
     output_filename = output_filename.replace('.zip', '.pdf').replace('.ZIP', '.pdf')
     return output_filename
+
+
+if __name__ == '__main__':
+    print('Módulo Jupyter')
 
 
 

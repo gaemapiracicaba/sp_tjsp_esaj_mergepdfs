@@ -15,9 +15,7 @@ def get_size_primary_monitor():
     To be used within tkinter
     """
     for monitor in get_monitors():
-        print(str(monitor))
         if monitor.is_primary:
-            print('Primary Monitor: {} height, {} width'.format(monitor.height, monitor.width))
             return monitor.height, monitor.width
 
 

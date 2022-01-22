@@ -1,0 +1,37 @@
+# https://github.com/marvinpinto/action-automatic-releases
+# Funciona bem, porém para cada release, dá um erro no VsCode
+# Erro: would clobber existing tag
+# Solução: git fetch --tags -f
+# Just uncheck Fetch all Tags when pulling in preference Git: Pull Tags
+# Descobri também que é possível excluir arquivos usando o ".gitattributes"
+# https://stackoverflow.com/questions/50059612/how-to-ignore-some-files-in-release-with-git
+
+name: 'Create Release'
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  pre-release:
+    name: 'My Release'
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: 'marvinpinto/action-automatic-releases@latest'
+        with:
+          repo_token: '${{ secrets.GITHUB_TOKEN }}'
+          automatic_release_tag: 'data'
+          prerelease: false
+          title: 'Dados'
+          files: |
+            LICENSE
+            ftp_action/index.html
+            README.md
+
+
+

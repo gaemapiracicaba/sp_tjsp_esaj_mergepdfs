@@ -1,40 +1,48 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import os
 import sys
+from esaj_functions import *
 
-# Functions
-from merge_process_esaj import *
 
-# Check Directory
-print(os.getcwd())
+def main(zipfile_file):
+    # Set Directories
+    input_path, output_path, output_apartados_path = set_directories(zipfile_file)
 
-# Variables
-zipfile_file = os.path.join('..', 'data', '1010642-60.2020.8.26.0019 pequeno.zip')
+    # Unzip
+    unzip_zipfile(zipfile_file, output_apartados_path)
 
-# Set Directories
-input_path, output_path, output_apartados_path = set_directories(zipfile_file)
+    # Renomeia os arquivos
+    rename_files(output_apartados_path)
 
-# Unzip
-unzip_zipfile(zipfile_file, output_apartados_path)
+    # Sort Files
+    list_files = sort_files_as_list(output_apartados_path)
 
-# Renomeia os arquivos
-rename_files(output_apartados_path)
+    # Output Filename
+    output_filename = create_output_filename(zipfile_file)
 
-# Sort Files
-list_files = sort_files_as_list(output_apartados_path)
+    # Merge Files
+    merge_files(output_apartados_path, input_path, output_filename)
 
-# Output Filename
-output_filename = create_output_filename(zipfile_file)
+    # Clean Directories
+    shutil.rmtree(output_path, ignore_errors=True)
 
-# Merge Files
-merge_files(output_apartados_path, input_path, output_filename)
+    print('> Fim.')
 
-# Clean Directories
-shutil.rmtree(output_path, ignore_errors=True)
-
-print('{:<100}'.format('> Fim.'))
 
 if __name__ == '__main__':
     print('Módulo Run')
+
+    # Function
+    try:
+        zipfile_file = os.path.join('..', 'data', '1010642-60.2020.8.26.0019 pequeno.zip')
+        main(zipfile_file)
+    except Exception as e:
+        print('Rodar por aqui não')
+        print(e)
+
+    try:
+        main(sys.argv[1])
+    except Exception as e:
+        print('Rodar por "argv" não deu')
+        print(e)
