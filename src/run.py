@@ -1,11 +1,19 @@
-#!/usr/bin/env python
-# coding: utf-8
+"""
+Summary
+"""
 
 import sys
+
 from esaj_functions import *
 
 
 def main(zipfile_file):
+    """
+    _summary_
+
+    :param zipfile_file: _description_
+    :type zipfile_file: _type_
+    """
     # Set Directories
     input_path, output_path, output_apartados_path = set_directories(zipfile_file)
 
@@ -35,8 +43,8 @@ if __name__ == '__main__':
 
     # Function
     try:
-        zipfile_file = os.path.join('..', 'data', '1010642-60.2020.8.26.0019 pequeno.zip')
-        main(zipfile_file)
+        zipfile_file2 = os.path.join('..', 'data', '1010642-60.2020.8.26.0019 pequeno.zip')
+        main(zipfile_file2)
     except Exception as e:
         print('Rodar por aqui não')
         print(e)

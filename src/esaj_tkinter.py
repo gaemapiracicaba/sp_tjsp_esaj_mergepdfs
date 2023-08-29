@@ -1,12 +1,15 @@
-#!/usr/bin/env python
-# coding: utf-8
+"""
+Descrever
+"""
 
 import os.path
+import sys
 import webbrowser
 from tkinter import *
 from tkinter import filedialog, messagebox
-from size_monitor import *
-from run import *
+
+from run import main
+from size_monitor import get_size_primary_monitor
 
 
 def select_zip_file():
@@ -16,26 +19,29 @@ def select_zip_file():
     zipfile_file = filedialog.askopenfilename(
         initialdir=os.path.join(os.getcwd(), '..'),
         title='Selecionar arquivo zipado (.zip)',
-        filetypes=(('Zip files', '*.zip'), ('All files', '*.*'))
+        filetypes=(('Zip files', '*.zip'), ('All files', '*.*')),
     )
     # Configura o Entry
     ety_zip.delete(0, END)
-    ety_zip.insert(0, '{}'.format(zipfile_file))
+    ety_zip.insert(0, f'{zipfile_file}')
 
     # Processing
     txt_process.delete(1.0, END)
     txt_process.see('end')
-    print('Arquivo Selecionado: {}\n'.format(ety_zip.get()))
+    print(f'Arquivo Selecionado: {ety_zip.get()}\n')
 
 
 def merge_file():
+    """
+    Descrever
+    """
     # Variables
     main(ety_zip.get())
 
     # Message Box
     yes_no = messagebox.askyesno(
         title='Convertido!',
-        message="""Processamento concluído com sucesso!.\n\nSeu arquivo está na mesma pasta do arquivo .zip.\n\nDeseja Fechar? """
+        message="""Processamento concluído com sucesso!.\n\nSeu arquivo está na mesma pasta do arquivo .zip.\n\nDeseja Fechar? """,
     )
     if yes_no:
         root.destroy()
@@ -58,6 +64,9 @@ def hide_all_frames():
 
 
 def open_about_frame():
+    """
+    Descrever
+    """
     # Frame
     hide_all_frames()
     about_frame.config(background='#333')
@@ -87,7 +96,7 @@ def open_about_frame():
         font=('Helvetica', 10),
         foreground='#fff',
         background='#333',
-        cursor='hand2'
+        cursor='hand2',
     )
     lbl_2.grid(row=1, padx=(10, 10), pady=(10, 10), sticky=NSEW)
     lbl_2.grid_rowconfigure(0, weight=1)
@@ -98,7 +107,7 @@ def open_about_frame():
         font=('Helvetica', 12),
         foreground='blue',
         background='#333',
-        cursor='hand2'
+        cursor='hand2',
     )
     lbl_3.grid(row=2, padx=(10, 10), pady=(10, 10), sticky=NSEW)
     lbl_3.grid_rowconfigure(0, weight=1)
@@ -106,6 +115,9 @@ def open_about_frame():
 
 
 def open_app_frame():
+    """
+    _summary_
+    """
     global ety_zip
     global txt_process
     hide_all_frames()
@@ -132,7 +144,7 @@ def open_app_frame():
         app_frame,
         text='{:^10}'.format('Browser'),
         font=('Helvetica', 10),
-        command=select_zip_file
+        command=select_zip_file,
     )
     btn_file.grid(row=1, padx=(5, 5), sticky=W)
     btn_file.grid_rowconfigure(0, weight=1)
@@ -164,7 +176,7 @@ def open_app_frame():
         app_frame,
         text='{:^10}'.format('Converter'),
         font=('Helvetica', 10),
-        command=merge_file
+        command=merge_file,
     )
     btn_final.grid(row=4, padx=(5, 5), sticky=W)
     btn_final.grid_rowconfigure(0, weight=1)
@@ -176,7 +188,7 @@ def open_app_frame():
         background='white',
         foreground='black',
         height=9,
-        wrap='word'
+        wrap='word',
     )
     txt_process.grid(row=7, padx=(5, 5), sticky=EW)
     txt_process.grid_rowconfigure(0, weight=1)
@@ -194,46 +206,58 @@ def call_back(event):
 
 
 class RedirectText(object):
+    """
+    _summary_
+
+    :param object: _description_
+    :type object: _type_
+    """
+
     def __init__(self, widget, tag='stdout'):
-        """Constructor"""
+        """
+        Constructor
+        """
         self.widget = widget
         self.tag = tag
 
     def write(self, string):
-        """Add text to the end and scroll to the end"""
+        """
+        Add text to the end and scroll to the end
+        """
         self.widget.insert('end', string, (self.tag))
         self.widget.see('end')
         self.widget.update_idletasks()
 
 
-# Main
-root = Tk()
-root.title('Gerar Processo com Bookmarks (TJSP | e-SAJ)')
-# photo = PhotoImage(file=os.path.join('..', 'imgs', 'icon.png'))
-# root.iconphoto(False, photo)
-root_width = 600
-root_height = 370
+if __name__ == '__main__':
+    # Main
+    root = Tk()
+    root.title('Gerar Processo com Bookmarks (TJSP | e-SAJ)')
+    # photo = PhotoImage(file=os.path.join('..', 'imgs', 'icon.png'))
+    # root.iconphoto(False, photo)
+    ROOT_WIDTH = 600
+    ROOT_HEIGHT = 370
 
-# Screen
-screen_height, screen_width = get_size_primary_monitor()
-x = int((screen_width / 2) - (root_width / 2))
-y = int((screen_height / 2) - (root_height / 2))
-root.geometry(f'{root_width}x{root_height}+{x}+{y}')
+    # Screen
+    screen_height, screen_width = get_size_primary_monitor()
+    x = int((screen_width / 2) - (ROOT_WIDTH / 2))
+    y = int((screen_height / 2) - (ROOT_HEIGHT / 2))
+    root.geometry(f'{ROOT_WIDTH}x{ROOT_HEIGHT}+{x}+{y}')
 
-# Frames
-app_frame = Frame(root, width=root_width, height=root_height)
-about_frame = Frame(root, width=root_width, height=root_height)
+    # Frames
+    app_frame = Frame(root, width=ROOT_WIDTH, height=ROOT_HEIGHT)
+    about_frame = Frame(root, width=ROOT_WIDTH, height=ROOT_HEIGHT)
 
-# Menu
-my_menu = Menu(root)
-root.config(menu=my_menu)
-my_menu.add_command(label='Aplicação', command=open_app_frame)
-my_menu.add_command(label='Sobre', command=open_about_frame)
+    # Menu
+    my_menu = Menu(root)
+    root.config(menu=my_menu)
+    my_menu.add_command(label='Aplicação', command=open_app_frame)
+    my_menu.add_command(label='Sobre', command=open_about_frame)
 
-# Grid
-root.grid_rowconfigure(0, weight=1)
-root.grid_columnconfigure(0, weight=1)
+    # Grid
+    root.grid_rowconfigure(0, weight=1)
+    root.grid_columnconfigure(0, weight=1)
 
-# Inicial App
-open_app_frame()
-root.mainloop()
+    # Inicial App
+    open_app_frame()
+    root.mainloop()

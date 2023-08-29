@@ -5,7 +5,7 @@ import os
 import re
 import shutil
 from zipfile import ZipFile
-from PyPDF2 import PdfFileMerger, PdfFileReader
+from PyPDF2 import PdfFileMerger, PdfFileReader, PdfMerger, PdfReader
 
 
 def set_directories(zipfile_file):
@@ -141,14 +141,14 @@ def merge_files(input_files_path, output_file_path, filename):
     n_files = get_n_files(input_files_path)
 
     # Call the PdfFileMerger
-    merged_object = PdfFileMerger()
+    merged_object = PdfMerger()
     
     # Loop
     for file in list_files:
         n_file+=1
         bookmark = adjust_bookmark(file)
         merged_object.append(
-            PdfFileReader(os.path.join(input_files_path, file), 'rb'),
+            PdfReader(os.path.join(input_files_path, file), 'rb'),
             bookmark,
         )
         print('Arquivo {} de {} juntado - {}% concluído. Aguarde.'.format(n_file, n_files, int(n_file/n_files*100)))
